@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+    <meta charset="utf-8"/>
+    <title>Odliczanie czasu</title>
+
+    <script type="text/javascript">
+
+        function generateTimer() {
+
+            let today = new Date();
+
+            let year = today.getFullYear();
+            let month = today.getMonth();
+            let day = today.getDay();
+            let hour = today.getHours();
+            let minute = today.getMinutes();
+            let second = today.getSeconds();
+
+            hour = addLeadingZero(hour);
+            minute = addLeadingZero(minute);
+            second = addLeadingZero(second);
+
+            document.getElementById("timer").innerHTML = day + "/" + month + "/" + year + " | "
+                                                         + hour + ":" + minute + ":" + second;
+            setTimeout("generateTimer()", 1000);
+        }
+
+        function addLeadingZero(timePart) {
+
+            if (timePart < 10) {
+                timePart = "0" + timePart;
+            }
+            return timePart;
+        }
+
+    </script>
+</head>
+
+<body onload="generateTimer()">
+
+    <div id="timer"></div>
+
+</body>
+</html>
