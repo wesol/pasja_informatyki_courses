@@ -1,0 +1,87 @@
+/*tags*/
+
+body {
+    background: black;
+    color: lightgray;
+    font-size: 24px;
+}
+
+/*ids*/
+
+#container {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#board {
+    width: 900px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 50px;
+    min-height: 60px;
+    letter-spacing: 20px;
+    font-family: 'Pangolin', cursive;
+}
+
+#gibbet {
+    float: left;
+    width: 50%;
+    text-align: center;
+    min-height: 280px;
+}
+
+#alphabet {
+    float: left;
+    width: 50%;
+    text-align: center;
+    min-height: 280px;
+}
+
+/*classed*/
+
+.letterBasic {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    float: left;
+    font-family: 'Pangolin', cursive;
+}
+
+.letter {
+    border: 4px solid lightgray;
+    cursor: pointer;
+}
+
+.letter:hover {
+    background-color: #c9ceff;
+    color: white;
+    border: 4px solid white;
+}
+
+.letterHitSuccess {
+    cursor: unset;
+    color: green;
+    border: 4px solid green;
+}
+
+.letterHitFail {
+    cursor: unset;
+    color: darkred;
+    border: 4px solid darkred;
+}
+
+.reset {
+    cursor: pointer;
+    color: green;
+    font-size: 48px;
+}
+
+.reset:hover {
+    color: white;
+}
+
