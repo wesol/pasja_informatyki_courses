@@ -1,5 +1,7 @@
-let cards = ["ciri.png", "geralt.png", "jaskier.png", "iorweth.png", "triss.png", "yen.png",
-             "ciri.png", "geralt.png", "jaskier.png", "iorweth.png", "triss.png", "yen.png"];
+let cards = ["ciri.png", "geralt.png", "jaskier.png", "iorweth.png", "triss.png", "yen.png"];
+
+
+let cardsOnBoard = randomCards(cards);
 
 let c0 = document.getElementById('c0');
 let c1 = document.getElementById('c1');
@@ -48,7 +50,7 @@ function revealCard(nr) {
     }
 
     const tempVisibleNumber = visibleNumber;
-    const img = "url(img/" + cards[nr]+ ")";
+    const img = "url(img/" + cardsOnBoard[nr] + ")";
     // alert(img);
 
     $currCard.addClass('activeCard').removeClass('card').css('backgroundImage', img);
@@ -56,7 +58,7 @@ function revealCard(nr) {
     if (visibleNumber == null) {
         visibleNumber = nr;
     } else {
-        if (cards[tempVisibleNumber] === cards[nr]) {
+        if (cardsOnBoard[tempVisibleNumber] === cardsOnBoard[nr]) {
 
             setTimeout(() => {
                 hide2Cards(nr, tempVisibleNumber)
@@ -76,13 +78,13 @@ function revealCard(nr) {
 
 function hide2Cards(...numbers) {
 
-    for (const nr of numbers){
+    for (const nr of numbers) {
         $('#c' + nr).css('opacity', 0);
     }
 
     hidedCards += 2;
 
-    if (hidedCards === cards.length){
+    if (hidedCards === cardsOnBoard.length) {
         $('.board').html('<br><h1>You win!<br>Done in ' + turnCounter + ' turns</h1>')
     }
 
@@ -91,9 +93,36 @@ function hide2Cards(...numbers) {
 
 function reset2Cards(...numbers) {
 
-    for (const nr of numbers){
+    for (const nr of numbers) {
         $('#c' + nr).css('backgroundImage', '').removeClass('activeCard').addClass('card');
     }
 
     locked = false;
+}
+
+function randomCards(cards) {
+
+    let doubleCards = [];
+
+    for (const i of cards) {
+        doubleCards.push(i, i);
+    }
+    console.log(doubleCards);
+
+    let randomArray = new Array(12);
+
+    for (let i = 0; i < randomArray.length; i++) {
+
+        const randomCardNumber = getRandomIntInclusive(0, doubleCards.length);
+        randomArray[i] = doubleCards[randomCardNumber];
+        doubleCards.splice(randomCardNumber, 1);
+    }
+
+    return randomArray;
+}
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
