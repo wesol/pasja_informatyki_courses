@@ -31,12 +31,69 @@ c9.addEventListener("click", () => {revealCard(9)});
 c10.addEventListener("click", () => {revealCard(10)});
 c11.addEventListener("click", () => {revealCard(11)});
 
-let oneVisible = false;
 let turnCounter = 0;
+let visibleNumber;
+let hidedCards = 0;
+let locked = false;
 
 function revealCard(nr) {
 
-    // alert(nr);
-    let img = "url(img/" + cards[nr]+ ")";
+    const $currCard = $('#c' + nr);
 
+    if (+($currCard.css('opacity')) === 0
+        || locked
+        || !(($currCard.css('backgroundImage')).includes('img/karta.png'))) {
+
+        return;
+    }
+
+    const tempVisibleNumber = visibleNumber;
+    const img = "url(img/" + cards[nr]+ ")";
+    // alert(img);
+
+    $currCard.addClass('activeCard').removeClass('card').css('backgroundImage', img);
+
+    if (visibleNumber == null) {
+        visibleNumber = nr;
+    } else {
+        if (cards[tempVisibleNumber] === cards[nr]) {
+
+            setTimeout(() => {
+                hide2Cards(nr, tempVisibleNumber)
+            }, 750);
+        } else {
+            setTimeout(() => {
+                reset2Cards(nr, tempVisibleNumber)
+            }, 1000);
+        }
+        locked = true;
+        turnCounter++;
+        visibleNumber = null;
+        $('.score').html('Turn counter: ' + turnCounter);
+
+    }
+}
+
+function hide2Cards(...numbers) {
+
+    for (const nr of numbers){
+        $('#c' + nr).css('opacity', 0);
+    }
+
+    hidedCards += 2;
+
+    if (hidedCards === cards.length){
+        $('.board').html('<br><h1>You win!<br>Done in ' + turnCounter + ' turns</h1>')
+    }
+
+    locked = false;
+}
+
+function reset2Cards(...numbers) {
+
+    for (const nr of numbers){
+        $('#c' + nr).css('backgroundImage', '').removeClass('activeCard').addClass('card');
+    }
+
+    locked = false;
 }
